@@ -31,11 +31,6 @@ export function VanishInput({
   const newDataRef = useRef<any[]>([]);
   const inputElementRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   const [animating, setAnimating] = useState(false);
-  const [internalValue, setInternalValue] = useState(value);
-
-  useEffect(() => {
-    setInternalValue(value);
-  }, [value]);
 
   const setRef = useCallback((node: HTMLInputElement | HTMLTextAreaElement | null) => {
     inputElementRef.current = node;
@@ -59,17 +54,17 @@ export function VanishInput({
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.font = `${fontSize * 2}px ${computedStyles.fontFamily}`;
-    ctx.fillStyle = "#FFF";
+    ctx.fillStyle = "#0062ff";
 
     if (isTextarea) {
-      const lines = internalValue.split('\n');
+      const lines = value.split('\n');
       lines.forEach((line, index) => {
         const yPos = (paddingTop + (lineHeight * index) + fontSize) * 2; // Adjusted for line-height and scaled, baseline
         ctx.fillText(line, paddingLeft * 2, yPos);
       });
     } else {
       const yPos = (paddingTop + fontSize) * 2; // Adjusted to match text baseline for input
-      ctx.fillText(internalValue, paddingLeft * 2, yPos);
+      ctx.fillText(value, paddingLeft * 2, yPos);
     }
 
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -104,7 +99,7 @@ export function VanishInput({
       r: 1,
       color: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`,
     }));
-  }, [internalValue, isTextarea]);
+  }, [value, isTextarea]);
 
   const animate = useCallback((start: number) => {
     const animateFrame = (pos: number = 0) => {
@@ -135,16 +130,13 @@ export function VanishInput({
               ctx.beginPath();
               ctx.rect(n, i, s, s);
               ctx.fillStyle = color;
-              ctx.strokeStyle = color;
+              ctx.strokeStyle = "#0062ff";
               ctx.stroke();
             }
           });
         }
         if (newDataRef.current.length > 0) {
           animateFrame(pos - 8);
-        } else {
-          setAnimating(false);
-          setInternalValue("");
         }
       });
     };
@@ -152,7 +144,7 @@ export function VanishInput({
   }, []);
 
   useEffect(() => {
-    if (shouldVanish && internalValue) {
+    if (shouldVanish && value) {
       setAnimating(true);
       draw();
       const maxX = newDataRef.current.reduce(
@@ -160,8 +152,10 @@ export function VanishInput({
         0
       );
       animate(maxX);
+    } else if (!shouldVanish) {
+      setAnimating(false);
     }
-  }, [shouldVanish, internalValue, draw, animate]);
+  }, [shouldVanish, value, draw, animate]);
 
   const InputComponent = isTextarea ? "textarea" : "input";
 
@@ -199,7 +193,7 @@ export function VanishInput({
 
       <div className="absolute inset-0 flex items-center rounded-md pointer-events-none">
         <AnimatePresence mode="wait">
-          {!internalValue && (
+          {!value && !animating && (
             <motion.p
               initial={{
                 y: 0,

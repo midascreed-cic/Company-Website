@@ -128,9 +128,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
               <div style="text-align: center; margin: 25px 0;">
                 <p style="color: #666; margin: 10px 0;">In the meantime, feel free to explore our services:</p>
                 <div style="margin: 20px 0;">
-                  <a href="https://team.midascreed.com/services/ai" style="display: inline-block; margin: 5px 10px; padding: 8px 16px; background: #0062ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px;">AI Solutions</a>
-                  <a href="https://team.midascreed.com/services/ar" style="display: inline-block; margin: 5px 10px; padding: 8px 16px; background: #0062ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px;">AR Experience</a>
-                  <a href="https://team.midascreed.com/services/web3" style="display: inline-block; margin: 5px 10px; padding: 8px 16px; background: #0062ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px;">Web3 Integration</a>
+                  <a href="https://midascreed.com/services/ai" style="display: inline-block; margin: 5px 10px; padding: 8px 16px; background: #0062ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px;">AI Solutions</a>
+                  <a href="https://midascreed.com/services/ar" style="display: inline-block; margin: 5px 10px; padding: 8px 16px; background: #0062ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px;">AR Experience</a>
+                  <a href="https://midascreed.com/services/web3" style="display: inline-block; margin: 5px 10px; padding: 8px 16px; background: #0062ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px;">Web3 Integration</a>
                 </div>
               </div>
             </div>

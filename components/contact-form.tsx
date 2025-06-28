@@ -34,18 +34,22 @@ export function ContactForm() {
     if (isPending) {
       setShouldVanishInputs(true);
     } else {
-      setShouldVanishInputs(false); // Reset vanish when no longer pending
       if (state && state.success) {
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
+        setTimeout(() => {
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            subject: "",
+            message: "",
+          });
+          setShouldVanishInputs(false);
+        }, 600);
+      } else {
+        setShouldVanishInputs(false);
       }
     }
-  }, [isPending, state]); // Depend on isPending and state object itself
+  }, [isPending, state]);
 
   return (
     <div>
@@ -99,18 +103,6 @@ export function ContactForm() {
           {isPending ? "Sending..." : "Send Message"}
         </Button>
       </form>
-
-      {state && (
-        <div
-          className={`mt-4 p-4 rounded-md ${
-            state.success
-              ? "bg-green-500/10 border border-green-500/20 text-green-400"
-              : "bg-red-500/10 border border-red-500/20 text-red-400"
-          }`}
-        >
-          {state.message}
-        </div>
-      )}
     </div>
   )
 }
