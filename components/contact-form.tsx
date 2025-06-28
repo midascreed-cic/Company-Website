@@ -1,7 +1,8 @@
 "use client"
 
 import { useActionState, useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import dynamic from "next/dynamic";
+const Button = dynamic(() => import("@/components/ui/stateful-button").then(mod => mod.Button), { ssr: false });
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -18,6 +19,9 @@ export function ContactForm() {
     message: "",
   })
   const [shouldVanishInputs, setShouldVanishInputs] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  const isFormValid = Object.values(formData).every((val) => val.trim() !== "");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -35,6 +39,10 @@ export function ContactForm() {
       setShouldVanishInputs(true);
     } else {
       if (state && state.success) {
+        setShowSuccess(true);
+        const timeout = setTimeout(() => {
+          setShowSuccess(false);
+        }, 2000);
         setTimeout(() => {
           setFormData({
             firstName: "",
@@ -45,6 +53,7 @@ export function ContactForm() {
           });
           setShouldVanishInputs(false);
         }, 600);
+        return () => clearTimeout(timeout);
       } else {
         setShouldVanishInputs(false);
       }
@@ -99,8 +108,18 @@ export function ContactForm() {
           className="min-h-[150px]"
           shouldVanish={shouldVanishInputs}
         />
-        <Button type="submit" className="border-beam-hover w-full" disabled={isPending}>
-          {isPending ? "Sending..." : "Send Message"}
+        <Button
+          type="submit"
+          className="border-beam-hover w-full"
+          disabled={isPending || !isFormValid}
+          loading={isPending}
+          success={showSuccess}
+        >
+          {isPending
+            ? "Sending..."
+            : showSuccess
+              ? "Message Sent"
+              : "Send Message"}
         </Button>
       </form>
     </div>
