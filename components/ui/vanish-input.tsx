@@ -43,6 +43,8 @@ export function VanishInput({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    console.log("[VanishInput] Drawing canvas for:", value);
+
     const computedStyles = getComputedStyle(inputElementRef.current);
     const fontSize = parseFloat(computedStyles.getPropertyValue("font-size"));
     const lineHeight = parseFloat(computedStyles.getPropertyValue("line-height"));
@@ -75,11 +77,7 @@ export function VanishInput({
       let i = 4 * t * canvas.width;
       for (let n = 0; n < canvas.width; n++) {
         let e = i + 4 * n;
-        if (
-          pixelData[e] !== 0 &&
-          pixelData[e + 1] !== 0 &&
-          pixelData[e + 2] !== 0
-        ) {
+        if (pixelData[e + 3] !== 0) {
           newData.push({
             x: n,
             y: t,
@@ -97,7 +95,7 @@ export function VanishInput({
       x,
       y,
       r: 1,
-      color: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`,
+      color: `#0062ff`,
     }));
   }, [value, isTextarea]);
 
@@ -145,6 +143,7 @@ export function VanishInput({
 
   useEffect(() => {
     if (shouldVanish && value) {
+      console.log("[VanishInput] Triggering vanish animation for:", name, value);
       setAnimating(true);
       draw();
       const maxX = newDataRef.current.reduce(
