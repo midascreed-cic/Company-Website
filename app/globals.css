@@ -1,0 +1,298 @@
+@import "../styles/magic-effects.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 231 48% 30%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 214 100% 60%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 214 100% 60%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --radius: 1rem;
+    --duration: 1.5s;
+    --marquee-duration: 30s;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Montserrat", sans-serif;
+    @apply font-semibold tracking-tight;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(to bottom right, rgba(43, 45, 66, 0.9), rgba(43, 45, 66, 0.7));
+}
+
+.hero-pattern {
+  background-image: radial-gradient(circle at 2px 2px, var(--secondary) 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -19px -19px;
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, #0062ff, #00a3ff);
+}
+
+.button-glow {
+  transition: all 0.3s ease;
+}
+
+.button-glow:hover {
+  box-shadow: 0 0 15px rgba(0, 98, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.section-gradient {
+  background: linear-gradient(to bottom, transparent, rgba(43, 45, 66, 0.05));
+}
+
+.nav-gradient {
+  width: 100vw;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@media (max-width: 768px) {
+  .nav-gradient {
+    background: rgba(0, 0, 0, 0.95);
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shine {
+  animation: shine var(--duration) linear infinite;
+}
+
+.bg-shine-size {
+  background-size: 200% 100%;
+}
+
+@keyframes nav-dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-dropdown-animation {
+  animation: nav-dropdown 0.3s ease-out;
+}
+
+/* Marquee animations */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--marquee-duration) linear infinite;
+}
+
+/* Partners slider animation - FASTER VERSION */
+@keyframes slide-fast {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-33.333%));
+  }
+}
+
+.partners-slider-fast {
+  display: flex;
+  animation: slide-fast 18s linear infinite;
+  width: max-content;
+}
+
+.partners-slider-fast.paused {
+  animation-play-state: paused;
+}
+
+/* Testimonial slider animations - TRULY INFINITE */
+@keyframes testimonial-slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-33.333%));
+  }
+}
+
+@keyframes testimonial-slide-right {
+  0% {
+    transform: translateX(calc(-33.333%));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.testimonial-slider-left {
+  display: flex;
+  animation: testimonial-slide-left 25s linear infinite;
+  width: max-content;
+}
+
+.testimonial-slider-right {
+  display: flex;
+  animation: testimonial-slide-right 20s linear infinite;
+  width: max-content;
+}
+
+/* Original slower version kept for reference */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.partners-slider {
+  display: flex;
+  animation: slide 30s linear infinite;
+}
+
+.partners-slider.paused {
+  animation-play-state: paused;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float-logo {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-float-logo {
+  animation: float-logo 3s ease-in-out infinite;
+}

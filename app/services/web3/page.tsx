@@ -1,0 +1,101 @@
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+export default function Web3IntegrationPage() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800" />
+        <div className="border-beam absolute inset-0" />
+        <div className="container relative z-10">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-16 items-center">
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">Web3 Integration</h1>
+              <p className="text-lg text-gray-600 dark:text-gray-300">
+                Transform your business into the decentralized future with blockchain technology, tokenization, and
+                smart contract solutions designed for security and scalability.
+              </p>
+            </div>
+            <div className="relative h-[300px] sm:h-[400px] lg:h-[500px]">
+              <Image
+                src="/images/web3-integration.jpeg"
+                alt="Web3 Integration"
+                fill
+                className="object-cover rounded-lg shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Showcase */}
+      <section className="py-24 bg-gray-50 dark:bg-gray-900">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-12 text-center">Projects We've Delivered</h2>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <Card className="border-beam overflow-hidden">
+              <CardHeader className="p-0">
+                <div className="relative h-48">
+                  <Image src="/images/activerse-project.jpeg" alt="Activerse Project" fill className="object-cover" />
+                </div>
+              </CardHeader>
+              <CardContent className="p-6">
+                <CardTitle className="mb-2">Activerse</CardTitle>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                  A phygital Web3 platform connecting real-world sustainable actions to NFT rewards. Users can claim SDG
+                  achievements by scanning QR codes at community events, promoting environmental responsibility through
+                  blockchain technology.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <a href="https://activerse.midascreed.com/" target="_blank" rel="noopener noreferrer">
+                    Learn More
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+            {[2, 3].map((project) => (
+              <Card key={project} className="border-beam overflow-hidden">
+                <CardHeader className="p-0">
+                  <div className="relative h-48">
+                    <Image
+                      src={`/placeholder.svg?height=200&width=400&text=Web3+Project+${project}`}
+                      alt={`Web3 Project ${project}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <CardTitle className="mb-2">Web3 Project {project}</CardTitle>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    We developed a decentralized finance (DeFi) platform for a fintech startup, enabling secure and
+                    transparent peer-to-peer transactions and yielding a 50% increase in user engagement.
+                  </p>
+                  <Button variant="outline" size="sm">
+                    Learn More
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
+        <div className="container text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to Embrace Web3 Technology?</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+            Let's explore how Web3 integration can revolutionize your business model and enhance security.
+          </p>
+          <Button asChild size="lg" className="button-glow">
+            <Link href="/contact">Contact Us for More Information</Link>
+          </Button>
+        </div>
+      </section>
+    </div>
+  )
+}
