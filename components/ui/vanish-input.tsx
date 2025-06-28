@@ -146,6 +146,10 @@ export function VanishInput({
       console.log("[VanishInput] Triggering vanish animation for:", name, value);
       setAnimating(true);
       draw();
+      // Clear the DOM value to prevent duplicate text during animation
+      if (inputElementRef.current) {
+        inputElementRef.current.value = "";
+      }
       const maxX = newDataRef.current.reduce(
         (prev, current) => (current.x > prev ? current.x : prev),
         0
@@ -155,6 +159,36 @@ export function VanishInput({
       setAnimating(false);
     }
   }, [shouldVanish, value, draw, animate]);
+
+  // Handle autofill events
+  useEffect(() => {
+    let animationFrameId: number;
+    let lastValue = value;
+
+    const checkForAutofill = () => {
+      if (inputElementRef.current && !animating) {
+        const currentValue = inputElementRef.current.value;
+        if (currentValue !== lastValue) {
+          lastValue = currentValue;
+          // Create a synthetic change event
+          const syntheticEvent = {
+            target: inputElementRef.current,
+            currentTarget: inputElementRef.current,
+          } as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+          onChange(syntheticEvent);
+        }
+      }
+      animationFrameId = requestAnimationFrame(checkForAutofill);
+    };
+
+    animationFrameId = requestAnimationFrame(checkForAutofill);
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [value, onChange, animating]);
 
   const InputComponent = isTextarea ? "textarea" : "input";
 
@@ -173,9 +207,9 @@ export function VanishInput({
         ref={canvasRef}
       />
       <InputComponent
-        onChange={(e) => {
+        onInput={(e) => {
           if (!animating) {
-            onChange(e);
+            onChange(e as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>);
           }
         }}
         ref={setRef}
@@ -186,7 +220,8 @@ export function VanishInput({
         className={cn(
           "flex w-full rounded-md border bg-background px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
           isTextarea ? "min-h-[150px] resize-none" : "h-10",
-          animating && "text-transparent dark:text-transparent"
+          animating && "text-transparent dark:text-transparent",
+          "[&:-webkit-autofill]:bg-background [&:-webkit-autofill]:shadow-[0_0_0_30px_hsl(var(--background))_inset] [&:-webkit-autofill]:text-foreground"
         )}
       />
 
