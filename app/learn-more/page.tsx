@@ -110,7 +110,7 @@ export default function LearnMorePage() {
         <div className="container relative z-10">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div className="order-2 lg:order-1">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl mb-6">Who We Are</h1>
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl mb-6"></h1>
               <div className="space-y-4 text-gray-300">
                 <p className="text-lg">
                   MidasCreed is a forward-thinking technology company based in Malawi, dedicated to transforming

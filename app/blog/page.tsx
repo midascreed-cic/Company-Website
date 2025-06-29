@@ -198,7 +198,7 @@ export default function BlogPage() {
       <div className="container py-8 mt-16 relative z-10">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-            Our Blog
+            
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
             Exploring the intersection of technology, innovation, and human potential. 
