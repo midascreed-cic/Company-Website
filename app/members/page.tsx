@@ -1,8 +1,13 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Linkedin } from "lucide-react"
+"use client";
+import React from "react";
+import { Vortex } from "@/components/ui/vortex";
+import { ShootingStars } from "@/components/ui/shooting-stars";
+import { StarsBackground } from "@/components/ui/stars-background";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Linkedin } from "lucide-react";
 
 const teamMembers = [
   {
@@ -33,26 +38,39 @@ const teamMembers = [
     image: "/images/Comfort-Kaitane.png",
     linkedin: "#",
   },
-]
+];
 
-export default function TeamPage() {
+export default function MembersPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 mt-16">
-      {/* Hero Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900/40 dark:to-blue-800/40 opacity-50" />
-        <div className="border-beam absolute inset-0" />
-        <div className="container relative z-10 text-center">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+    <div className="min-h-screen">
+      {/* Vortex Section */}
+      <Vortex 
+        backgroundColor="black"
+        baseHue={200}
+        baseSpeed={0.3}
+        rangeSpeed={0.4}
+        baseRadius={1}
+        rangeRadius={2}
+        particleCount={500}
+        containerClassName="h-screen"
+      >
+        <div className="flex flex-col items-center justify-center h-full text-center mt-32">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
             Meet the Team Behind MidasCreed
           </h1>
-          <p className="mt-4 text-xl text-gray-600 dark:text-gray-300">A touch of your future today</p>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            A touch of your future today
+          </p>
         </div>
-      </section>
+      </Vortex>
 
       {/* Team Member Profiles */}
-      <section className="py-24">
-        <div className="container">
+      <section className="relative py-24 bg-black overflow-hidden">
+        {/* Animated backgrounds */}
+        <StarsBackground className="z-0" />
+        <ShootingStars className="z-0" />
+        
+        <div className="container relative z-10">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {teamMembers.map((member, index) => (
               <Card key={index} className="border-beam overflow-hidden transition-all duration-300 hover:scale-105">
@@ -113,5 +131,5 @@ export default function TeamPage() {
         </div>
       </section>
     </div>
-  )
-}
+  );
+} 

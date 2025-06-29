@@ -58,7 +58,7 @@ const company = [
   {
     title: "Team",
     description: "Meet our experts",
-    href: "/about/team",
+    href: "/members",
   },
   {
     title: "Contact",
