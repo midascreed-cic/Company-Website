@@ -139,7 +139,7 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/what-we-think" className={cn(navigationMenuTriggerStyle(), "glow-effect")}>What We Think</Link>
+                <Link href="/blog" className={cn(navigationMenuTriggerStyle(), "glow-effect")}>What We Think</Link>
               </NavigationMenuItem>
             </NavigationMenuList>
             <NavigationMenuViewport />
@@ -197,7 +197,7 @@ export function Header() {
                   </ul>
                 </details>
                 <DrawerClose asChild>
-                  <Link href="/what-we-think" className="text-lg font-semibold py-2">What We Think</Link>
+                  <Link href="/blog" className="text-lg font-semibold py-2">What We Think</Link>
                 </DrawerClose>
                 <details className="group">
                   <summary className="text-lg font-semibold py-2 cursor-pointer">Company</summary>
