@@ -66,7 +66,7 @@ const blogData = [
     ),
   },
   {
-    src: "/digits blackwell.jpg",
+    src: "/TeleHealth.jpeg",
     title: "The TeleHealth Leap: Revolutionizing Care with AI",
     category: "Healthcare",
     content: (
