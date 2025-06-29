@@ -20,11 +20,11 @@ const teamMembers = [
     linkedin: "https://www.linkedin.com/in/conrad-zidana-94554b21b",
   },
   {
-    name: "Strappido Strappius",
-    role: "Lead AR Developer",
-    bio: "Strappido's innovative AR solutions have revolutionized user experiences for our clients across various industries.",
-    image: "/placeholder.svg?height=300&width=300",
-    linkedin: "#",
+    name: "Takondwa Namalima",
+    role: "Strategic Partnerships & Grants Lead",
+    bio: "Takondwa spearheads MidasCreed's global impact strategy, forging high-value partnerships and securing transformative grants to power our SDG and innovation-driven initiatives.",
+    image: "/Takondwa.png",
+    linkedin: "https://www.linkedin.com/in/takondwa-namalima-8a0159252/",
   },
   {
     name: "Comfort Kaitane",
@@ -68,7 +68,7 @@ export default function TeamPage() {
                           src={member.image || "/placeholder.svg"}
                           alt={member.name}
                           fill
-                          className="object-cover object-top"
+                          className={`object-cover object-top${member.name === "Takondwa Namalima" ? " !object-center scale-110" : ""}`}
                           sizes="160px"
                         />
                       </div>

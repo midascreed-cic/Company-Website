@@ -11,8 +11,20 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { useEffect, useState } from "react"
+import { Menu } from "lucide-react"
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerClose,
+  DrawerTitle,
+} from "@/components/ui/drawer"
 
 const services = [
   {
@@ -89,7 +101,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full border-b transition-all duration-300 left-0 right-0",
+        "fixed top-0 z-[100] w-full transition-all duration-300 left-0 right-0 overflow-visible",
         "nav-gradient", // Ensure this class is always applied
         isScrolled && "shadow-lg",
         isVisible ? "translate-y-0" : "-translate-y-full",
@@ -108,11 +120,14 @@ export function Header() {
           </div>
           <span className="text-xl font-semibold text-white hidden sm:inline">MidasCreed</span>
         </Link>
-        <div className="flex items-center space-x-6">
+        <div className="flex-1 items-center justify-center hidden md:flex">
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="flex items-center space-x-6">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="glow-effect">Our Work</NavigationMenuTrigger>
+                <Link href="/learn-more" className={cn(navigationMenuTriggerStyle(), "glow-effect")}>Who We Are</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="glow-effect">What We Do</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="flex flex-col w-[250px] gap-1 p-4">
                     {services.map((service) => (
@@ -123,6 +138,16 @@ export function Header() {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/what-we-think" className={cn(navigationMenuTriggerStyle(), "glow-effect")}>What We Think</Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+            <NavigationMenuViewport />
+          </NavigationMenu>
+        </div>
+        <div className="items-center space-x-4 hidden md:flex">
+          <NavigationMenu>
+            <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="glow-effect">Company</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -136,7 +161,64 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
+            <NavigationMenuViewport />
           </NavigationMenu>
+          <Link href="https://v0-aurum-website-design.vercel.app/" target="_blank" rel="noopener noreferrer" className={cn(navigationMenuTriggerStyle(), "glow-effect")}>Aurum AI</Link>
+        </div>
+        <div className="md:hidden flex items-center">
+          <Drawer>
+            <DrawerTrigger asChild>
+              <button className="p-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <Menu className="h-7 w-7" />
+                <span className="sr-only">Open menu</span>
+              </button>
+            </DrawerTrigger>
+            <DrawerContent className="flex flex-col h-[90vh] bg-background">
+              <DrawerHeader>
+                <DrawerTitle className="sr-only">Main Menu</DrawerTitle>
+                <DrawerClose asChild>
+                  <button className="absolute right-4 top-4 text-white text-2xl">&times;</button>
+                </DrawerClose>
+              </DrawerHeader>
+              <nav className="flex-1 flex flex-col gap-4 p-6">
+                <DrawerClose asChild>
+                  <Link href="/learn-more" className="text-lg font-semibold py-2">Who We Are</Link>
+                </DrawerClose>
+                <details className="group">
+                  <summary className="text-lg font-semibold py-2 cursor-pointer">What We Do</summary>
+                  <ul className="pl-4 flex flex-col gap-2">
+                    {services.map((service) => (
+                      <li key={service.title}>
+                        <DrawerClose asChild>
+                          <Link href={service.href} className="text-base py-1 block">{service.title}</Link>
+                        </DrawerClose>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+                <DrawerClose asChild>
+                  <Link href="/what-we-think" className="text-lg font-semibold py-2">What We Think</Link>
+                </DrawerClose>
+                <details className="group">
+                  <summary className="text-lg font-semibold py-2 cursor-pointer">Company</summary>
+                  <ul className="pl-4 flex flex-col gap-2">
+                    {company.map((item) => (
+                      <li key={item.title}>
+                        <DrawerClose asChild>
+                          <Link href={item.href} className="text-base py-1 block">{item.title}</Link>
+                        </DrawerClose>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </nav>
+              <DrawerFooter>
+                <DrawerClose asChild>
+                  <Link href="https://v0-aurum-website-design.vercel.app/" target="_blank" rel="noopener noreferrer" className="w-full block text-center bg-blue-600 text-white font-bold py-3 rounded-md hover:bg-blue-700 transition">Aurum AI</Link>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
     </header>

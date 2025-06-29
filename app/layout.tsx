@@ -31,17 +31,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`scroll-smooth dark ${montserrat.className}`}>
+    <html lang="en" data-theme="dark" style={{ colorScheme: 'dark' }} className={`scroll-smooth dark ${montserrat.className}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
       </head>
       <body className="overflow-x-hidden w-full">
-        <ThemeProvider>
-          <Header />
-          <main className="w-full">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <Header />
+        <main className="w-full">{children}</main>
+        <Footer />
       </body>
     </html>
   )
